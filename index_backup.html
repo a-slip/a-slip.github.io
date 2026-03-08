@@ -93,145 +93,11 @@
     .navbar-item { font-weight: 500; color: #333 !important; transition: color 0.2s ease; }
     .navbar-item:hover { color: #3273dc !important; }
     .navbar-item.is-active-section { color: #3273dc !important; }
-    .navbar.navbar-over-video {
-      background: transparent !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      box-shadow: none !important;
-    }
-    .navbar.navbar-over-video .navbar-item { color: rgba(255,255,255,0.9) !important; }
-    .navbar.navbar-over-video .navbar-item:hover { color: #3273dc !important; }
-    .navbar.navbar-over-video .navbar-burger span { background-color: #fff; }
 
     /* ── Hero ────────────────────────────────────────────────── */
-    .hero-teaser-wrap {
-      position: relative;
-      overflow-x: hidden;
-      min-height: 100vh;
-      background: #000;
-    }
-    .hero-teaser-wrap .teaser-video-bg {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 1800px;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-    }
-    .hero-teaser-wrap .teaser-overlay {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        transparent 50%,
-        rgba(0,0,0,0.25) 88%,
-        rgba(0,0,0,0.4) 100%
-      );
-      z-index: 1;
-      pointer-events: none;
-    }
-    .hero-teaser-wrap::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        transparent 50%,
-        rgba(0,0,0,0.25) 88%,
-        rgba(0,0,0,0.4) 100%
-      );
-      z-index: 1;
-      pointer-events: none;
-    }
-    .hero-teaser-wrap .hero-body {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 2;
-      padding: 2.5rem 1.5rem 5rem;
-      width: 100%;
-      transition: opacity 0.12s ease-out;
-    }
-    .hero-teaser-wrap .hero-teaser-content {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .hero-teaser-wrap .title.paper-title { color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,0.5); margin-bottom: 0.5rem; }
-    .hero-teaser-wrap .author-list { color: rgba(255,255,255,0.95); text-shadow: 0 1px 4px rgba(0,0,0,0.5); margin-top: 0.6rem; margin-bottom: 0.35rem; }
-    .hero-teaser-wrap .author-list a { color: #b8d4ff; }
-    .hero-teaser-wrap .author-list a:hover { color: #fff; text-decoration: underline; }
-    .hero-teaser-wrap .affiliation-list { color: rgba(255,255,255,0.9); text-shadow: 0 1px 4px rgba(0,0,0,0.5); margin-top: 0.5rem; margin-bottom: 0.2rem; }
-    .hero-teaser-wrap .link-buttons { margin-top: 1.25rem; }
-    .hero-teaser-wrap .link-buttons .button { box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-
-    /* Scroll indicator */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.35rem;
-      color: rgba(255,255,255,0.9);
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      transition: opacity 0.12s ease-out;
-    }
-    .scroll-indicator:hover { color: #fff; }
-    .scroll-indicator-arrow {
-      animation: scroll-bounce 2s ease-in-out infinite;
-    }
-    @keyframes scroll-bounce {
-      0%, 100% { transform: translateY(0); opacity: 1; }
-      50% { transform: translateY(6px); opacity: 0.7; }
-    }
-
-    @media (max-width: 768px) {
-      .hero-teaser-wrap {
-        min-height: 100vh;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-      }
-      .hero-teaser-wrap .teaser-video-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        min-height: 100%;
-        object-fit: cover;
-        object-position: center center;
-        transform: none;
-      }
-      .hero-teaser-wrap .hero-body {
-        position: relative !important;
-        padding: 1.5rem 1rem 4rem;
-        padding-top: calc(3.25rem + 1rem);
-      }
-      .hero-teaser-wrap .title.paper-title { font-size: 1.4rem; }
-      .hero-teaser-wrap .author-list { font-size: 0.85rem; margin-bottom: 0.25rem; }
-      .hero-teaser-wrap .affiliation-list { font-size: 0.78rem; }
-      .hero-teaser-wrap .link-buttons .button { font-size: 0.8rem; padding: 0.4em 0.8em; margin: 0.2rem; }
+    .hero-body { 
+      padding: 4rem 1.5rem 2rem;
+      padding-top: calc(3.25rem + 2rem);
     }
 
     .title.paper-title {
@@ -289,6 +155,26 @@
       text-align: justify;
     }
 
+    /* ── Result cards ────────────────────────────────────────── */
+    .result-card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      transition: transform .2s, box-shadow .2s;
+      height: 100%;
+    }
+    .result-card:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 6px 20px rgba(0,0,0,.12); 
+    }
+    .result-card .card-caption {
+      padding: 0.75rem 1rem;
+      background: #fff;
+      font-size: 0.88rem;
+      color: #444;
+      text-align: center;
+    }
+
     /* ── Media containers ────────────────────────────────────── */
     .media-container {
       border-radius: 10px;
@@ -307,25 +193,14 @@
       display: block;
     }
 
-    /* Tighter grid layout for smaller figures */
     .two-col-media {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      gap: 2rem;
       margin: 2rem 0;
-    }
-    .three-col-media {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
-      margin: 2rem 0;
-    }
-    @media (max-width: 1024px) {
-      .three-col-media { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     }
     @media (max-width: 768px) {
       .two-col-media { grid-template-columns: 1fr; }
-      .three-col-media { grid-template-columns: 1fr; }
     }
 
     /* ── Cards ───────────────────────────────────────────────── */
@@ -375,6 +250,7 @@
     @media (max-width: 768px) {
       .title.paper-title { font-size: 1.5rem; }
       .section-heading { font-size: 1.4rem; }
+      .hero-body { padding-top: calc(3.25rem + 1rem); }
     }
   </style>
 </head>
@@ -405,51 +281,37 @@
     </div>
   </nav>
 
-  <section class="hero hero-teaser-wrap" id="top">
-    <video class="teaser-video-bg" muted playsinline autoplay loop preload="auto">
-      <source src="assets/front_teaser.mp4" type="video/mp4">
-    </video>
-    <div class="teaser-overlay" aria-hidden="true"></div>
-    <button type="button" class="scroll-indicator" id="scroll-indicator-btn" aria-label="Scroll to content">
-      <span class="scroll-indicator-arrow"><i class="fas fa-chevron-down"></i></span>
-      <span>Scroll</span>
-    </button>
+  <section id="top" class="hero is-paper">
     <div class="hero-body">
-      <div class="container has-text-centered">
-        <div class="hero-teaser-content">
-          <h1 class="title paper-title">A-SLIP: Acoustic Sensing for Continuous In-hand Slip Estimation</h1>
-          <p class="author-list">Uksang Yoo*, Yuemin Mao*, Jean Oh, Jeffrey Ichnowski</p>
-          <p class="affiliation-list">Carnegie Mellon University Robotics Institute</p>
+      <div class="container has-text-centered" style="max-width: 980px;">
+        <h1 class="title paper-title">A-SLIP: Acoustic Sensing for Continuous In-hand Slip Estimation</h1>
+        <p class="author-list">Uksang Yoo*, Yuemin Mao*, Jean Oh, Jeffrey Ichnowski</p>
+        <p class="affiliation-list">Carnegie Mellon University Robotics Institute</p>
+        <p class="subtle" style="margin-top: 0.75rem;">(Under Review)</p>
 
-          <div class="link-buttons">
-            <a class="button is-dark" href="#" target="_blank">
-              <span class="icon"><i class="ai ai-arxiv"></i></span>
-              <span>arXiv</span>
-            </a>
-            <a class="button is-dark" href="assets/a-slip.pdf" target="_blank">
-              <span class="icon"><i class="fas fa-file-pdf"></i></span>
-              <span>Paper</span>
-            </a>
-            <a class="button is-dark" href="#" target="_blank">
-              <span class="icon"><i class="fab fa-github"></i></span>
-              <span>Code (Coming Soon)</span>
-            </a>
-            <a class="button is-warning" href="#" target="_blank">
-              <span class="icon"><i class="fas fa-database"></i></span>
-              <span>Dataset (Coming Soon)</span>
-            </a>
-          </div>
+        <div class="buttons is-centered" style="margin-top: 1.25rem;">
+          <a class="button is-dark is-rounded" href="assets/a-slip.pdf" target="_blank" rel="noopener">
+            <span class="icon"><i class="fas fa-file-pdf"></i></span>
+            <span>Paper</span>
+          </a>
+        </div>
+
+        <div class="media-container" style="margin-top: 2.5rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+          <video controls autoplay muted loop style="width: 100%; border-radius: 10px;">
+            <source src="assets/front_teaser.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
     </div>
   </section>
 
   <section id="overview" class="section is-white-alt">
-    <div class="container" style="max-width: 900px;">
+    <div class="container" style="max-width: 980px;">
       <h2 class="section-heading">System Overview</h2>
       <div class="section-divider"></div>
 
-      <div class="media-container" style="max-width: 80%; margin: 0 auto;">
+      <div class="media-container">
         <img src="assets/system_overview.jpg" alt="A-SLIP System Overview">
       </div>
 
@@ -467,7 +329,7 @@
   </section>
 
   <section id="abstract" class="section">
-    <div class="container" style="max-width: 900px;">
+    <div class="container" style="max-width: 980px;">
       <h2 class="section-heading">Abstract</h2>
       <div class="section-divider"></div>
 
@@ -484,7 +346,7 @@
   </section>
 
   <section id="system" class="section is-light-alt">
-    <div class="container" style="max-width: 900px;">
+    <div class="container" style="max-width: 980px;">
       <h2 class="section-heading">Sensor Design</h2>
       <div class="section-divider"></div>
 
@@ -530,7 +392,7 @@
   </section>
 
   <section id="contributions" class="section is-white-alt">
-    <div class="container" style="max-width: 900px;">
+    <div class="container" style="max-width: 980px;">
       <h2 class="section-heading">Contributions</h2>
       <div class="section-divider"></div>
 
@@ -548,11 +410,11 @@
   </section>
 
   <section id="method" class="section is-light-alt">
-    <div class="container" style="max-width: 900px;">
+    <div class="container" style="max-width: 980px;">
       <h2 class="section-heading">Method</h2>
       <div class="section-divider"></div>
 
-      <div class="media-container" style="max-width: 85%; margin: 0 auto;">
+      <div class="media-container">
         <img src="assets/model_architecture.jpg" alt="A-SLIP Model Architecture">
       </div>
 
@@ -595,7 +457,7 @@
   </section>
 
   <section id="evaluation" class="section is-white-alt">
-    <div class="container" style="max-width: 900px;">
+    <div class="container" style="max-width: 980px;">
       <h2 class="section-heading">Evaluation & Results</h2>
       <div class="section-divider"></div>
 
@@ -630,7 +492,7 @@
 
       <div style="margin-top: 2.5rem;">
         <h3 style="font-size: 1.3rem; font-weight: 600; color: #1a1a2e; margin-bottom: 1.5rem;">Prediction Examples</h3>
-        <div class="media-container" style="max-width: 75%; margin: 0 auto;">
+        <div class="media-container">
           <video controls style="width: 100%;">
             <source src="assets/evaluation_prediction.mp4" type="video/mp4">
             Your browser does not support the video tag.
@@ -654,7 +516,7 @@
   </section>
 
   <section id="citation" class="section is-light-alt">
-    <div class="container" style="max-width: 900px;">
+    <div class="container" style="max-width: 980px;">
       <h2 class="section-heading">Citation</h2>
       <div class="section-divider"></div>
 
@@ -663,8 +525,9 @@
           <pre style="background: #1e1e2e; color: #cdd6f4; padding: 1.5rem; border-radius: 8px; overflow-x: auto; font-size: 0.9rem; line-height: 1.6;">@inproceedings{a_slip_2026,
   title={A-SLIP: Acoustic Sensing for Continuous In-hand Slip Estimation},
   author={Yoo*, Uksang and Mao*, Yuemin and Oh, Jean and Ichnowski, Jeffrey},
+  booktitle={(Under Review)},
   year={2026},
-  note={Under review. * indicates equal contribution}
+  note={* indicates equal contribution}
 }</pre>
         </div>
       </div>
@@ -687,25 +550,6 @@
       document.querySelector('.page-progress-bar-fill').style.width = scrollPercent + '%';
     });
 
-    // Update navbar transparency on scroll
-    function updateNavbarOnScroll() {
-      const navbar = document.querySelector('.navbar');
-      const hero = document.getElementById('top');
-      if (!navbar || !hero) return;
-      
-      const heroBottom = hero.offsetHeight;
-      const scrollTop = window.scrollY;
-      
-      if (scrollTop < heroBottom - 100) {
-        navbar.classList.add('navbar-over-video');
-      } else {
-        navbar.classList.remove('navbar-over-video');
-      }
-    }
-    
-    window.addEventListener('scroll', updateNavbarOnScroll);
-    updateNavbarOnScroll();
-
     // Mobile navbar burger
     const burger = document.querySelector('.navbar-burger');
     const menu = document.getElementById('mainNav');
@@ -713,17 +557,6 @@
       burger.addEventListener('click', () => {
         burger.classList.toggle('is-active');
         menu.classList.toggle('is-active');
-      });
-    }
-
-    // Scroll indicator click to scroll
-    const scrollBtn = document.getElementById('scroll-indicator-btn');
-    if (scrollBtn) {
-      scrollBtn.addEventListener('click', () => {
-        const target = document.getElementById('overview');
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
       });
     }
   </script>
