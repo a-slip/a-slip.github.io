@@ -18,70 +18,167 @@
   <meta name="twitter:title" content="A-SLIP: Acoustic Sensing for Continuous In-hand Slip Estimation" />
   <meta name="twitter:description" content="Multi-channel acoustic sensing for slip presence, direction, and magnitude estimation." />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Include MathJax -->
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <script type="text/javascript">
+  window.onload = function() {
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$', '$']]
+      }
+    });
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+  };
+  </script>
+  <!-- Academic Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
 
   <style>
-    html { scroll-behavior: smooth; }
+    /* ── General ─────────────────────────────────────────────── */
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 3.25rem;
+      overscroll-behavior-y: none;
+    }
+
     body {
       font-family: "Google Sans", "Segoe UI", Roboto, Arial, sans-serif;
-      color: #202124;
-      background: #ffffff;
+      background: #fff;
+      color: #333;
+      overscroll-behavior-y: none;
     }
-    .navbar {
-      position: sticky;
+
+    .container {
+      width: 80%;
+    }
+
+    /* ── Page progress bar ───────────────────────────────────── */
+    .page-progress-bar {
+      position: fixed;
       top: 0;
-      z-index: 10;
-      backdrop-filter: blur(8px);
-      background: rgba(255, 255, 255, 0.92);
-      border-bottom: 1px solid #e9ecef;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: rgba(0,0,0,0.06);
+      z-index: 101;
+      pointer-events: none;
     }
-    .hero.is-paper {
-      background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+    .page-progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #3273dc;
+      transition: width 0.08s ease-out;
     }
+
+    /* ── Navbar ──────────────────────────────────────────────── */
+    .navbar {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .navbar-item { font-weight: 500; color: #333 !important; transition: color 0.2s ease; }
+    .navbar-item:hover { color: #3273dc !important; }
+    .navbar-item.is-active-section { color: #3273dc !important; }
+
+    /* ── Hero ────────────────────────────────────────────────── */
+    .hero-body { 
+      padding: 4rem 1.5rem 2rem;
+      padding-top: calc(3.25rem + 2rem);
+    }
+
     .title.paper-title {
-      font-size: 2.25rem;
-      line-height: 1.2;
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #1a1a2e;
     }
-    .authors {
-      margin-top: 0.75rem;
+
+    .author-list { 
+      font-size: 1.05rem; 
+      margin-bottom: 0.5rem; 
       color: #4a4a4a;
-      font-size: 1.05rem;
     }
-    .subtle {
-      color: #6b7280;
-      font-size: 0.95rem;
+    .author-list a { color: #3273dc; text-decoration: none; }
+    .author-list a:hover { text-decoration: underline; }
+
+    .affiliation-list { 
+      font-size: 0.95rem; 
+      color: #555; 
     }
-    .section-title {
+
+    /* ── Buttons ─────────────────────────────────────────────── */
+    .link-buttons { margin-top: 1.5rem; }
+    .link-buttons .button {
+      margin: 0.3rem;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    /* ── Section headings ────────────────────────────────────── */
+    .section-heading {
       font-size: 1.8rem;
       font-weight: 700;
-      margin-bottom: 0.35rem;
+      color: #1a1a2e;
+      text-align: center;
+      margin-bottom: 0.5rem;
     }
     .section-divider {
-      width: 64px;
+      width: 60px;
       height: 4px;
       background: #3273dc;
+      margin: 0 auto 2rem;
       border-radius: 2px;
-      margin-bottom: 1.5rem;
     }
-    .card.clean {
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      border: 1px solid #eef0f3;
-      border-radius: 10px;
-    }
-    .paper-abstract {
+
+    /* ── Abstract ────────────────────────────────────────────── */
+    .abstract-box {
+      background: #f7f9fc;
+      border-left: 4px solid #3273dc;
+      padding: 1.5rem 2rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 1rem;
       line-height: 1.75;
       text-align: justify;
     }
-    .metric-list li { margin-bottom: 0.5rem; }
+
+    /* ── Result cards ────────────────────────────────────────── */
+    .result-card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      transition: transform .2s, box-shadow .2s;
+      height: 100%;
+    }
+    .result-card:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 6px 20px rgba(0,0,0,.12); 
+    }
+    .result-card .card-caption {
+      padding: 0.75rem 1rem;
+      background: #fff;
+      font-size: 0.88rem;
+      color: #444;
+      text-align: center;
+    }
+
+    /* ── Media containers ────────────────────────────────────── */
     .media-container {
-      margin: 2rem 0;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .media-container:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,0,0,.12);
     }
     .media-container video,
     .media-container img {
@@ -89,23 +186,73 @@
       height: auto;
       display: block;
     }
+
     .two-col-media {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin: 1.5rem 0;
+      gap: 2rem;
+      margin: 2rem 0;
     }
     @media (max-width: 768px) {
       .two-col-media { grid-template-columns: 1fr; }
     }
-    .footer {
-      background: #f7f9fc;
-      border-top: 1px solid #e9ecef;
-      padding: 2rem 1.5rem;
+
+    /* ── Cards ───────────────────────────────────────────────── */
+    .card.clean {
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      border: none;
+      border-radius: 10px;
+    }
+    .card.clean:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,.12);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .paper-abstract {
+      line-height: 1.75;
+      text-align: justify;
+    }
+    .metric-list li { margin-bottom: 0.75rem; }
+
+    /* ── Keyword pill ────────────────────────────────────────── */
+    .keyword-pill {
+      display: inline-block;
+      background: #eef3ff;
+      color: #3273dc;
+      border: 1px solid #b8cef5;
+      border-radius: 20px;
+      padding: 0.2rem 0.8rem;
+      margin: 0.2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    /* ── Section alternating backgrounds ────────────────────── */
+    .section.is-light-alt { background: #f7f9fc; }
+    .section.is-white-alt { background: #fff; }
+
+    /* ── Footer ──────────────────────────────────────────────── */
+    .footer { 
+      background: #1a1a2e; 
+      color: rgba(255,255,255,.65); 
+      padding: 2rem 1.5rem; 
+    }
+    .footer a { color: rgba(255,255,255,.8); }
+    .footer a:hover { color: #fff; }
+
+    /* ── Responsive tweaks ───────────────────────────────────── */
+    @media (max-width: 768px) {
+      .title.paper-title { font-size: 1.5rem; }
+      .section-heading { font-size: 1.4rem; }
+      .hero-body { padding-top: calc(3.25rem + 1rem); }
     }
   </style>
 </head>
 <body>
+  <div class="page-progress-bar">
+    <div class="page-progress-bar-fill"></div>
+  </div>
+
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item has-text-weight-semibold" href="#top">A-SLIP</a>
@@ -152,9 +299,9 @@
     </div>
   </section>
 
-  <section id="overview" class="section">
+  <section id="overview" class="section is-white-alt">
     <div class="container" style="max-width: 980px;">
-      <h2 class="section-title">System Overview</h2>
+      <h2 class="section-heading">System Overview</h2>
       <div class="section-divider"></div>
 
       <div class="media-container">
@@ -176,26 +323,24 @@
 
   <section id="abstract" class="section">
     <div class="container" style="max-width: 980px;">
-      <h2 class="section-title">Abstract</h2>
+      <h2 class="section-heading">Abstract</h2>
       <div class="section-divider"></div>
 
-      <div class="card clean">
-        <div class="card-content paper-abstract">
-          Reliable in-hand manipulation requires accurate real-time estimation of slip between a gripper and a grasped object.
-          A-SLIP introduces a multi-channel acoustic sensing system integrated into a parallel-jaw gripper for continuous
-          slip estimation in the grasp plane. The sensor uses piezoelectric microphones behind a textured silicone contact pad
-          to capture structured contact-induced vibrations. A lightweight convolutional model processes synchronized multi-channel
-          log-mel spectrograms and jointly predicts slip presence, direction, and magnitude. Across robot- and externally-induced
-          slip experiments, A-SLIP achieves strong directional accuracy and improves slip detection over prior baselines, and further
-          demonstrates robust real-time performance in closed-loop reactive control.
-        </div>
+      <div class="abstract-box">
+        Reliable in-hand manipulation requires accurate real-time estimation of slip between a gripper and a grasped object.
+        A-SLIP introduces a multi-channel acoustic sensing system integrated into a parallel-jaw gripper for continuous
+        slip estimation in the grasp plane. The sensor uses piezoelectric microphones behind a textured silicone contact pad
+        to capture structured contact-induced vibrations. A lightweight convolutional model processes synchronized multi-channel
+        log-mel spectrograms and jointly predicts slip presence, direction, and magnitude. Across robot- and externally-induced
+        slip experiments, A-SLIP achieves strong directional accuracy and improves slip detection over prior baselines, and further
+        demonstrates robust real-time performance in closed-loop reactive control.
       </div>
     </div>
   </section>
 
-  <section id="system" class="section">
+  <section id="system" class="section is-light-alt">
     <div class="container" style="max-width: 980px;">
-      <h2 class="section-title">Sensor Design</h2>
+      <h2 class="section-heading">Sensor Design</h2>
       <div class="section-divider"></div>
 
       <div class="two-col-media">
@@ -217,47 +362,49 @@
         </div>
       </div>
 
-      <div style="margin-top: 2rem;">
-        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem;">Design Variations</h3>
+      <div style="margin-top: 2.5rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 600; color: #1a1a2e; margin-bottom: 1.5rem;">Design Variations</h3>
         <div class="two-col-media">
           <div class="media-container">
             <video controls style="width: 100%;">
               <source src="assets/desing_placement.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.9rem;">Microphone Placement</div>
+            <div style="padding: 0.75rem; background: #eef3ff; text-align: center; font-size: 0.85rem; color: #3273dc; font-weight: 500;">Microphone Placement</div>
           </div>
           <div class="media-container">
             <video controls style="width: 100%;">
               <source src="assets/desing_texture.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.9rem;">Contact Surface Texture</div>
+            <div style="padding: 0.75rem; background: #eef3ff; text-align: center; font-size: 0.85rem; color: #3273dc; font-weight: 500;">Contact Surface Texture</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="contributions" class="section">
+  <section id="contributions" class="section is-white-alt">
     <div class="container" style="max-width: 980px;">
-      <h2 class="section-title">Contributions</h2>
+      <h2 class="section-heading">Contributions</h2>
       <div class="section-divider"></div>
 
-      <div class="content">
-        <ul>
-          <li>A low-profile, low-cost acoustic gripper sensor with textured silicone contact surfaces and embedded piezoelectric microphones.</li>
-          <li>A unified learning objective that jointly estimates slip presence, magnitude, and direction from synchronized multi-channel audio.</li>
-          <li>A two-stage pretraining and finetuning pipeline for robust transfer to real robot slip estimation and reactive control settings.</li>
-          <li>Extensive real-world experiments on continuous in-hand slip estimation and closed-loop manipulation tasks.</li>
-        </ul>
+      <div class="card clean">
+        <div class="card-content content">
+          <ul style="line-height: 1.8;">
+            <li>A low-profile, low-cost acoustic gripper sensor with textured silicone contact surfaces and embedded piezoelectric microphones.</li>
+            <li>A unified learning objective that jointly estimates slip presence, magnitude, and direction from synchronized multi-channel audio.</li>
+            <li>A two-stage pretraining and finetuning pipeline for robust transfer to real robot slip estimation and reactive control settings.</li>
+            <li>Extensive real-world experiments on continuous in-hand slip estimation and closed-loop manipulation tasks.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="method" class="section">
+  <section id="method" class="section is-light-alt">
     <div class="container" style="max-width: 980px;">
-      <h2 class="section-title">Method</h2>
+      <h2 class="section-heading">Method</h2>
       <div class="section-divider"></div>
 
       <div class="media-container">
@@ -274,22 +421,22 @@
         </div>
       </div>
 
-      <div style="margin-top: 2rem;">
-        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem;">Training Strategy</h3>
+      <div style="margin-top: 2.5rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 600; color: #1a1a2e; margin-bottom: 1.5rem;">Training Strategy</h3>
         <div class="two-col-media">
           <div class="media-container">
             <video controls style="width: 100%;">
               <source src="assets/pretrain_data.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.9rem;">Pretraining Data</div>
+            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.85rem; font-weight: 500; color: #555;">Pretraining Data</div>
           </div>
           <div class="media-container">
             <video controls style="width: 100%;">
               <source src="assets/finetune_data.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.9rem;">Finetuning Data</div>
+            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.85rem; font-weight: 500; color: #555;">Finetuning Data</div>
           </div>
         </div>
 
@@ -302,9 +449,9 @@
     </div>
   </section>
 
-  <section id="evaluation" class="section">
+  <section id="evaluation" class="section is-white-alt">
     <div class="container" style="max-width: 980px;">
-      <h2 class="section-title">Evaluation & Results</h2>
+      <h2 class="section-heading">Evaluation & Results</h2>
       <div class="section-divider"></div>
 
       <div class="two-col-media">
@@ -316,28 +463,28 @@
         </div>
       </div>
 
-      <div style="margin-top: 2rem;">
-        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem;">Closed-Loop Control Tasks</h3>
+      <div style="margin-top: 2.5rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 600; color: #1a1a2e; margin-bottom: 1.5rem;">Closed-Loop Control Tasks</h3>
         <div class="two-col-media">
           <div class="media-container">
             <video controls style="width: 100%;">
               <source src="assets/evaluation_task1.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.9rem;">Task 1: Slip Detection & Stop</div>
+            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.85rem; font-weight: 500; color: #555;">Task 1: Slip Detection & Stop</div>
           </div>
           <div class="media-container">
             <video controls style="width: 100%;">
               <source src="assets/evaluation_task2.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.9rem;">Task 2: Slip Tracking Control</div>
+            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.85rem; font-weight: 500; color: #555;">Task 2: Slip Tracking Control</div>
           </div>
         </div>
       </div>
 
-      <div style="margin-top: 2rem;">
-        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem;">Prediction Examples</h3>
+      <div style="margin-top: 2.5rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 600; color: #1a1a2e; margin-bottom: 1.5rem;">Prediction Examples</h3>
         <div class="media-container">
           <video controls style="width: 100%;">
             <source src="assets/evaluation_prediction.mp4" type="video/mp4">
@@ -346,9 +493,9 @@
         </div>
       </div>
 
-      <div class="card clean" style="margin-top: 2rem;">
+      <div class="card clean" style="margin-top: 2.5rem;">
         <div class="card-content content">
-          <h3 style="font-weight: 600; margin-bottom: 1rem;">Key Results</h3>
+          <h3 style="font-weight: 600; color: #1a1a2e; margin-bottom: 1.25rem;">Key Results</h3>
           <ul class="metric-list">
             <li>Finetuned 4-microphone A-SLIP reaches a mean absolute directional error of <strong>14.1°</strong>.</li>
             <li>Improves slip detection accuracy by up to <strong>12%</strong> relative to baselines.</li>
@@ -361,17 +508,17 @@
     </div>
   </section>
 
-  <section id="citation" class="section">
+  <section id="citation" class="section is-light-alt">
     <div class="container" style="max-width: 980px;">
-      <h2 class="section-title">Citation</h2>
+      <h2 class="section-heading">Citation</h2>
       <div class="section-divider"></div>
 
       <div class="card clean">
         <div class="card-content">
-<pre>@inproceedings{a_slip_2026,
+          <pre style="background: #1e1e2e; color: #cdd6f4; padding: 1.5rem; border-radius: 8px; overflow-x: auto; font-size: 0.9rem; line-height: 1.6;">@inproceedings{a_slip_2026,
   title={A-SLIP: Acoustic Sensing for Continuous In-hand Slip Estimation},
   author={Anonymous Authors},
-  booktitle={Arxiv},
+  booktitle={IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
   year={2026}
 }</pre>
         </div>
@@ -381,12 +528,21 @@
 
   <footer class="footer">
     <div class="content has-text-centered">
-      <p><strong>A-SLIP</strong> project website.</p>
-      <p class="subtle">Code, datasets, and supplementary media can be linked here as they become available.</p>
+      <p><strong>A-SLIP</strong> — Acoustic Sensing for Continuous In-hand Slip Estimation</p>
+      <p style="font-size: 0.9rem; margin-top: 0.5rem;">IROS 2026 Submission</p>
     </div>
   </footer>
 
   <script>
+    // Page progress bar
+    document.addEventListener('scroll', function() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      document.querySelector('.page-progress-bar-fill').style.width = scrollPercent + '%';
+    });
+
+    // Mobile navbar burger
     const burger = document.querySelector('.navbar-burger');
     const menu = document.getElementById('mainNav');
     if (burger && menu) {
