@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A-SLIP: Acoustic Sensing for Continuous In-hand Slip Estimation</title>
+
+  <meta name="description" content="A-SLIP is a multi-channel acoustic sensing system for continuous in-hand slip estimation, predicting slip presence, direction, and magnitude in real time." />
+  <meta name="keywords" content="A-SLIP, acoustic sensing, slip estimation, in-hand manipulation, robotics, tactile sensing, piezoelectric microphones" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:title" content="A-SLIP: Acoustic Sensing for Continuous In-hand Slip Estimation" />
+  <meta property="og:description" content="Low-profile, multi-channel acoustic sensing for continuous slip vector estimation in robotic in-hand manipulation." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://a-slip.github.io/" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="A-SLIP: Acoustic Sensing for Continuous In-hand Slip Estimation" />
+  <meta name="twitter:description" content="Multi-channel acoustic sensing for slip presence, direction, and magnitude estimation." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Google Sans", "Segoe UI", Roboto, Arial, sans-serif;
+      color: #202124;
+      background: #ffffff;
+    }
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid #e9ecef;
+    }
+    .hero.is-paper {
+      background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+    }
+    .title.paper-title {
+      font-size: 2.25rem;
+      line-height: 1.2;
+    }
+    .authors {
+      margin-top: 0.75rem;
+      color: #4a4a4a;
+      font-size: 1.05rem;
+    }
+    .subtle {
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .section-divider {
+      width: 64px;
+      height: 4px;
+      background: #3273dc;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .card.clean {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      border: 1px solid #eef0f3;
+      border-radius: 10px;
+    }
+    .paper-abstract {
+      line-height: 1.75;
+      text-align: justify;
+    }
+    .metric-list li { margin-bottom: 0.5rem; }
+    .media-container {
+      margin: 2rem 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    .media-container video,
+    .media-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .two-col-media {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    @media (max-width: 768px) {
+      .two-col-media { grid-template-columns: 1fr; }
+    }
+    .footer {
+      background: #f7f9fc;
+      border-top: 1px solid #e9ecef;
+      padding: 2rem 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item has-text-weight-semibold" href="#top">A-SLIP</a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNav">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="mainNav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#overview">Overview</a>
+        <a class="navbar-item" href="#abstract">Abstract</a>
+        <a class="navbar-item" href="#system">System Design</a>
+        <a class="navbar-item" href="#method">Method</a>
+        <a class="navbar-item" href="#evaluation">Evaluation</a>
+        <a class="navbar-item" href="#citation">Citation</a>
+      </div>
+    </div>
+  </nav>
+
+  <section id="top" class="hero is-paper">
+    <div class="hero-body">
+      <div class="container has-text-centered" style="max-width: 980px;">
+        <h1 class="title paper-title">A-SLIP: Acoustic Sensing for Continuous In-hand Slip Estimation</h1>
+        <p class="authors">Anonymous Authors</p>
+        <p class="subtle">IROS 2026 Submission</p>
+
+        <div class="buttons is-centered" style="margin-top: 1.25rem;">
+          <a class="button is-dark is-rounded" href="assets/a-slip.pdf" target="_blank" rel="noopener">
+            <span class="icon"><i class="fas fa-file-pdf"></i></span>
+            <span>Paper</span>
+          </a>
+        </div>
+
+        <div class="media-container" style="margin-top: 2.5rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+          <video controls autoplay muted loop style="width: 100%; border-radius: 10px;">
+            <source src="assets/front_teaser.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="overview" class="section">
+    <div class="container" style="max-width: 980px;">
+      <h2 class="section-title">System Overview</h2>
+      <div class="section-divider"></div>
+
+      <div class="media-container">
+        <img src="assets/system_overview.jpg" alt="A-SLIP System Overview">
+      </div>
+
+      <div class="card clean" style="margin-top: 1.5rem;">
+        <div class="card-content content">
+          <p>
+            A-SLIP is a complete system for real-time slip estimation in robotic grasping. The system integrates
+            piezoelectric microphones into a parallel-jaw gripper and uses a convolutional neural network to process
+            synchronized multi-channel audio spectrograms, jointly estimating slip presence, direction, and magnitude
+            in the grasp plane.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="abstract" class="section">
+    <div class="container" style="max-width: 980px;">
+      <h2 class="section-title">Abstract</h2>
+      <div class="section-divider"></div>
+
+      <div class="card clean">
+        <div class="card-content paper-abstract">
+          Reliable in-hand manipulation requires accurate real-time estimation of slip between a gripper and a grasped object.
+          A-SLIP introduces a multi-channel acoustic sensing system integrated into a parallel-jaw gripper for continuous
+          slip estimation in the grasp plane. The sensor uses piezoelectric microphones behind a textured silicone contact pad
+          to capture structured contact-induced vibrations. A lightweight convolutional model processes synchronized multi-channel
+          log-mel spectrograms and jointly predicts slip presence, direction, and magnitude. Across robot- and externally-induced
+          slip experiments, A-SLIP achieves strong directional accuracy and improves slip detection over prior baselines, and further
+          demonstrates robust real-time performance in closed-loop reactive control.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="system" class="section">
+    <div class="container" style="max-width: 980px;">
+      <h2 class="section-title">Sensor Design</h2>
+      <div class="section-divider"></div>
+
+      <div class="two-col-media">
+        <div class="media-container">
+          <img src="assets/sensor_design_v3.jpg" alt="A-SLIP Sensor Design">
+        </div>
+        <div class="media-container">
+          <img src="assets/Hardware_setup.jpg" alt="Hardware Setup">
+        </div>
+      </div>
+
+      <div class="card clean" style="margin-top: 1.5rem;">
+        <div class="card-content content">
+          <p>
+            The A-SLIP sensor consists of piezoelectric microphones embedded behind a textured silicone contact pad
+            in a parallel-jaw gripper. The textured surface promotes structured vibrations during slip, while the
+            piezoelectric microphones capture broadband acoustic signals with minimal footprint.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem;">Design Variations</h3>
+        <div class="two-col-media">
+          <div class="media-container">
+            <video controls style="width: 100%;">
+              <source src="assets/desing_placement.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.9rem;">Microphone Placement</div>
+          </div>
+          <div class="media-container">
+            <video controls style="width: 100%;">
+              <source src="assets/desing_texture.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.9rem;">Contact Surface Texture</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contributions" class="section">
+    <div class="container" style="max-width: 980px;">
+      <h2 class="section-title">Contributions</h2>
+      <div class="section-divider"></div>
+
+      <div class="content">
+        <ul>
+          <li>A low-profile, low-cost acoustic gripper sensor with textured silicone contact surfaces and embedded piezoelectric microphones.</li>
+          <li>A unified learning objective that jointly estimates slip presence, magnitude, and direction from synchronized multi-channel audio.</li>
+          <li>A two-stage pretraining and finetuning pipeline for robust transfer to real robot slip estimation and reactive control settings.</li>
+          <li>Extensive real-world experiments on continuous in-hand slip estimation and closed-loop manipulation tasks.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="method" class="section">
+    <div class="container" style="max-width: 980px;">
+      <h2 class="section-title">Method</h2>
+      <div class="section-divider"></div>
+
+      <div class="media-container">
+        <img src="assets/model_architecture.jpg" alt="A-SLIP Model Architecture">
+      </div>
+
+      <div class="card clean" style="margin-top: 1.5rem;">
+        <div class="card-content content">
+          <p>
+            A-SLIP uses a lightweight convolutional network that processes synchronized multi-channel log-mel spectrograms
+            from the piezoelectric microphones. The model employs channel and temporal attention mechanisms to jointly predict
+            slip presence, direction, and magnitude through a unified multi-objective learning framework.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem;">Training Strategy</h3>
+        <div class="two-col-media">
+          <div class="media-container">
+            <video controls style="width: 100%;">
+              <source src="assets/pretrain_data.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.9rem;">Pretraining Data</div>
+          </div>
+          <div class="media-container">
+            <video controls style="width: 100%;">
+              <source src="assets/finetune_data.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.9rem;">Finetuning Data</div>
+          </div>
+        </div>
+
+        <div class="card clean" style="margin-top: 1.5rem;">
+          <div class="card-content">
+            <img src="assets/training_data_distribution.png" alt="Training Data Distribution" style="width: 100%; border-radius: 8px;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="evaluation" class="section">
+    <div class="container" style="max-width: 980px;">
+      <h2 class="section-title">Evaluation & Results</h2>
+      <div class="section-divider"></div>
+
+      <div class="two-col-media">
+        <div class="media-container">
+          <img src="assets/evaluation_task1_task2.jpg" alt="Evaluation Tasks">
+        </div>
+        <div class="media-container">
+          <img src="assets/evaluation_predictions.jpg" alt="Prediction Results">
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem;">Closed-Loop Control Tasks</h3>
+        <div class="two-col-media">
+          <div class="media-container">
+            <video controls style="width: 100%;">
+              <source src="assets/evaluation_task1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.9rem;">Task 1: Slip Detection & Stop</div>
+          </div>
+          <div class="media-container">
+            <video controls style="width: 100%;">
+              <source src="assets/evaluation_task2.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.9rem;">Task 2: Slip Tracking Control</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem;">Prediction Examples</h3>
+        <div class="media-container">
+          <video controls style="width: 100%;">
+            <source src="assets/evaluation_prediction.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="card clean" style="margin-top: 2rem;">
+        <div class="card-content content">
+          <h3 style="font-weight: 600; margin-bottom: 1rem;">Key Results</h3>
+          <ul class="metric-list">
+            <li>Finetuned 4-microphone A-SLIP reaches a mean absolute directional error of <strong>14.1°</strong>.</li>
+            <li>Improves slip detection accuracy by up to <strong>12%</strong> relative to baselines.</li>
+            <li>Reduces directional error by <strong>32%</strong> over baseline methods.</li>
+            <li>Compared to single-microphone designs, multi-channel sensing reduces directional error by <strong>64%</strong> and magnitude error by <strong>68%</strong>.</li>
+            <li>Demonstrates reliable behavior in closed-loop reactive control tasks under real robot operating conditions.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="citation" class="section">
+    <div class="container" style="max-width: 980px;">
+      <h2 class="section-title">Citation</h2>
+      <div class="section-divider"></div>
+
+      <div class="card clean">
+        <div class="card-content">
+<pre>@inproceedings{a_slip_2026,
+  title={A-SLIP: Acoustic Sensing for Continuous In-hand Slip Estimation},
+  author={Anonymous Authors},
+  booktitle={IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  year={2026}
+}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p><strong>A-SLIP</strong> project website.</p>
+      <p class="subtle">Code, datasets, and supplementary media can be linked here as they become available.</p>
+    </div>
+  </footer>
+
+  <script>
+    const burger = document.querySelector('.navbar-burger');
+    const menu = document.getElementById('mainNav');
+    if (burger && menu) {
+      burger.addEventListener('click', () => {
+        burger.classList.toggle('is-active');
+        menu.classList.toggle('is-active');
+      });
+    }
+  </script>
+</body>
+</html>
