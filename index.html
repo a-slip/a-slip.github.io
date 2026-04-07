@@ -314,6 +314,14 @@
       gap: 1.5rem;
       margin: 2rem 0;
     }
+    /* Image left (narrower), video right (wider) */
+    .two-col-media.two-col-media--img-narrow-video-wide {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    }
+    /* Vertically center columns when figure heights differ */
+    .two-col-media.two-col-media--v-center {
+      align-items: center;
+    }
     .three-col-media {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -324,7 +332,8 @@
       .three-col-media { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     }
     @media (max-width: 768px) {
-      .two-col-media { grid-template-columns: 1fr; }
+      .two-col-media,
+      .two-col-media.two-col-media--img-narrow-video-wide { grid-template-columns: 1fr; }
       .three-col-media { grid-template-columns: 1fr; }
     }
 
@@ -444,7 +453,7 @@
 
   <section class="hero hero-teaser-wrap" id="top">
     <video class="teaser-video-bg" muted playsinline autoplay loop preload="auto">
-      <source src="assets/front_teaser.mp4" type="video/mp4">
+      <source src="assets/front_teaser_new.mp4" type="video/mp4">
     </video>
     <div class="teaser-overlay" aria-hidden="true"></div>
     <button type="button" class="scroll-indicator" id="scroll-indicator-btn" aria-label="Scroll to content">
@@ -628,7 +637,16 @@
 
         <div class="card clean" style="margin-top: 1.5rem;">
           <div class="card-content">
-            <img src="assets/training_data_v4.jpg" alt="Training Data Distribution" style="width: 80%; display: block; margin: 0 auto; border-radius: 8px;">
+            <div class="two-col-media two-col-media--v-center" style="margin: 0;">
+              <div class="media-container">
+                <img src="assets/Hardware_setup.jpg" alt="System Overview" style="border-radius: 8px;">
+                <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.85rem; font-weight: 500; color: #555;">Data Collection Setup</div>
+              </div>
+              <div class="media-container">
+                <img src="assets/training_data_v4.jpg" alt="Training Data Distribution" style="border-radius: 8px;">
+                <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.85rem; font-weight: 500; color: #555;">Training Data Distribution</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -648,35 +666,54 @@
           <img src="assets/evaluation_predictions.jpg" alt="Prediction Results">
         </div>
       </div> -->
-      <div class="three-media-layout">
-        <!-- Left: single large image -->
+      <!-- <div class="three-media-layout">
         <div class="left-media">
           <img src="assets/evaluation_predictions.jpg" alt="Prediction Results">
         </div>
       
-        <!-- Right: two stacked images -->
         <div class="right-media">
           <img src="assets/exp_task1.jpg" alt="Evaluation Task1">
           <img src="assets/exp_task2.jpg" alt="Evaluation Task2">
         </div>
+      </div> -->
+
+      <div class="two-col-media two-col-media--img-narrow-video-wide" style="margin: 2rem auto; max-width: 100%;">
+        <div class="media-container">
+          <img src="assets/exp_task1.jpg" alt="Evaluation Task1">
+        </div>
+        <div class="media-container">
+          <video controls style="width: 100%;">
+            <source src="assets/evaluation_task1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.85rem; font-weight: 500; color: #555;"></div>
+        </div>
       </div>
 
-            <video controls style="width: 100%;">
-              <source src="assets/evaluation_task2.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-            <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.85rem; font-weight: 500; color: #555;">Task 2: Slip Tracking Control</div>
-          </div>
+      <div class="two-col-media two-col-media--img-narrow-video-wide" style="margin: 2rem auto; max-width: 100%;">
+        <div class="media-container">
+          <img src="assets/exp_task2.jpg" alt="Evaluation Task2">
+        </div>
+        <div class="media-container">
+          <video controls style="width: 100%;">
+            <source src="assets/evaluation_task2_new.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div style="padding: 0.75rem; background: #f7f9fc; text-align: center; font-size: 0.85rem; font-weight: 500; color: #555;"></div>
         </div>
       </div>
 
       <div style="margin-top: 2.5rem;">
         <h3 style="font-size: 1.3rem; font-weight: 600; color: #1a1a2e; margin-bottom: 1.5rem;">Prediction Examples</h3>
-        <div class="media-container" style="max-width: 75%; margin: 0 auto;">
+        <div class="media-container" style="max-width: 90%; margin: 0 auto;">
           <video controls style="width: 100%;">
             <source src="assets/evaluation_prediction.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
+        </div>
+
+        <div class="media-container" style="max-width: 60%; margin: 2rem auto 0;">
+          <img src="assets/evaluation_predictions.jpg" alt="Prediction Results">
         </div>
       </div>
 
